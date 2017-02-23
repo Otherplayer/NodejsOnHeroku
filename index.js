@@ -17,11 +17,6 @@ app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
     next();
 });
-// parse application/x-www-form-urlencoded
-app.use(bodyParser.urlencoded({ extended: false }))
-
-// parse application/json
-app.use(bodyParser.json())
 
 
 
@@ -40,7 +35,7 @@ app.post('/login',function (request,response) {
 });
 
 //// POST /webhook gets JSON bodies
-app.post('/webhook', function(request, response) {
+app.post('/webhook', jsonParser, function(request, response) {
 
     var reqParams = request.body.result;
     logger(reqParams);
