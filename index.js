@@ -39,7 +39,7 @@ app.post('/login',function (request,response) {
 app.post('/webhook', function(request, response) {
 
     var reqParams = request.body.result;
-    // console.log(reqParams);
+    console.log(reqParams);
     if (reqParams['action'] != 'shipping.cost'){
         return {};
     }
