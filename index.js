@@ -4,7 +4,6 @@ var pg = require('pg');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
-
 app.use(express.static(__dirname + '/public'));
 
 // views is directory for all template files
@@ -16,12 +15,30 @@ app.get('/', function(request, response) {
 });
 
 
+var bodyParser = require('body-parser');
+// 创建 application/x-www-form-urlencoded 编码解析
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 var user = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500};
 
 
-app.get('/webhook', function(request, response) {
+app.post('/webhook', urlencodedParser, function(request, response) {
+    console.log(request.baseUrl);
+    console.log(request.body);
+    console.log(request.hostname);
+    console.log(request.path);
+    console.log(request.headers);
+
+    // 输出 JSON 格式
+    response = {
+        first_name:request.body.first_name,
+        last_name:request.body.last_name
+    };
+    console.log(response);
+
     var result = JSON.stringify(user);
-    response.send(result);
+    response.send(response);
+
 });
 
 
