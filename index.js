@@ -44,7 +44,7 @@ app.post('/webhook', function(request, response) {
         return {};
     }
     var parameters = reqParams["parameters"];
-    var zone = parameters["shipping-zone"];
+    var zone = parameters["delivery-zone"];
     var speech = "The cost of shipping to " + zone + " is " + cost[zone] + " euros.";
     // console.log(parameters);
     // console.log(zone);
