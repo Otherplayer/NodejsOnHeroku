@@ -28,7 +28,7 @@ app.get('/index.html', function(request, response) {
 
 
 
-var user = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500};
+var cost = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500};
 
 
 app.post('/login',function (request,response) {
@@ -37,9 +37,30 @@ app.post('/login',function (request,response) {
 });
 
 app.post('/webhook', function(request, response) {
-    var result = JSON.stringify(request.body);
+
+    var reqParams = request.body.result;
+    // console.log(reqParams);
+    if (reqParams['action'] != 'shipping.cost'){
+        return {};
+    }
+    var parameters = reqParams["parameters"];
+    var zone = parameters["shipping-zone"];
+    var speech = "The cost of shipping to " + zone + " is " + cost[zone] + " euros.";
+    // console.log(parameters);
+    // console.log(zone);
+    // console.log(speech);
+
+    var result = {
+        "speech": speech,
+        "displayText": speech,
+        // "data": {},
+        // "contextOut": [],
+        "source": "apiai-onlinestore-shipping"
+    };
+
     console.log(result);
-    if (!request.body) return res.sendStatus(400)
+    // var result = JSON.stringify(result);
+    // if (!request.body) return res.sendStatus(400);
     response.send(result);
 
 });
