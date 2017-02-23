@@ -21,7 +21,7 @@ app.use(function(req, res, next) {
 
 
 
-var cost = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500};
+var cost = {'北京':100, '上海':200, '郑州':300, '西安':400, '海口':500};
 
 
 
@@ -51,7 +51,7 @@ app.post('/webhook', jsonParser, function(request, response) {
     var result = {
         "speech": speech,
         "displayText": speech,
-        "source": "polly-online-support"
+        "source": "online-delivery-cost-query"
     };
 
     // var result = JSON.stringify(result);
