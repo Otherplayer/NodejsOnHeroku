@@ -40,12 +40,12 @@ app.post('/webhook', jsonParser, function(request, response) {
     var reqParams = request.body.result;
     logger(reqParams);
 
-    if (reqParams['action']['name'] != 'shipping.cost'){
+    if (reqParams['action']['name'] != 'delivery.cost'){
         return {};
     }
     var parameters = reqParams.action["parameters"];
-    var zone = parameters["delivery-zone"];//shipping-zone
-    var speech = "The cost of shipping to " + zone + " is " + cost[zone] + " euros.";
+    var zone = parameters["delivery-zone"];
+    var speech = "运输到 " + zone + " 的费用是 " + cost[zone] + " RMB。";
     logger(speech);
 
     var result = {
