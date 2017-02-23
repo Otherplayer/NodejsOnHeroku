@@ -48,7 +48,7 @@ app.post('/webhook', function(request, response) {
     var speech = "The cost of shipping to " + zone + " is " + cost[zone] + " euros.";
     // console.log(parameters);
     // console.log(zone);
-    // console.log(speech);
+    console.log(speech);
 
     var result = {
         "speech": speech,
@@ -58,7 +58,7 @@ app.post('/webhook', function(request, response) {
         "source": "apiai-onlinestore-shipping"
     };
 
-    console.log(result);
+    // console.log(result);
     // var result = JSON.stringify(result);
     // if (!request.body) return res.sendStatus(400);
     response.send(result);
