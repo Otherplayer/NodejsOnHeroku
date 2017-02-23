@@ -44,7 +44,7 @@ app.post('/webhook', jsonParser, function(request, response) {
         return {};
     }
     var parameters = reqParams.action["parameters"];
-    var zone = parameters["delivery-zone"];
+    var zone = parameters["geo-city"];
     var speech = "运输到 " + zone + " 的费用是 " + cost[zone] + " RMB。";
     logger(speech);
 
