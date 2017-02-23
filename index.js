@@ -2,42 +2,45 @@ var cool = require('cool-ascii-faces');
 var express = require('express');
 var pg = require('pg');
 var app = express();
+var bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin,Authorization, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    next();
+});
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }));
+// parse application/json
+app.use(bodyParser.json());
 
 // views is directory for all template files
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
-app.get('/', function(request, response) {
-    response.render('pages/index')
+app.get('/index.html', function(request, response) {
+    response.sendFile( __dirname + "/" + "index.html" );
 });
 
 
-var bodyParser = require('body-parser');
-// 创建 application/x-www-form-urlencoded 编码解析
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 
 var user = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500};
 
 
-app.post('/webhook', urlencodedParser, function(request, response) {
-    console.log(request.baseUrl);
+app.post('/login',function (request,response) {
     console.log(request.body);
-    console.log(request.hostname);
-    console.log(request.path);
-    console.log(request.headers);
+    response.send(cool());
+});
 
-    // 输出 JSON 格式
-    response = {
-        first_name:request.body.first_name,
-        last_name:request.body.last_name
-    };
-    console.log(response);
-
-    var result = JSON.stringify(user);
-    response.send(response);
+app.post('/webhook', function(request, response) {
+    var result = JSON.stringify(request.body);
+    console.log(result);
+    if (!request.body) return res.sendStatus(400)
+    response.send(result);
 
 });
 
