@@ -17,9 +17,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // parse application/json
 app.use(bodyParser.json());
 
-// views is directory for all template files
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
 
 app.get('/index.html', function(request, response) {
     response.sendFile( __dirname + "/" + "index.html" );
