@@ -15,8 +15,13 @@ app.get('/', function(request, response) {
     response.render('pages/index')
 });
 
+
+var user = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500};
+
+
 app.get('/cool', function(request, response) {
-    response.send(cool());
+    var result = JSON.stringify(user);
+    response.send(result);
 });
 
 
