@@ -19,7 +19,7 @@ app.get('/', function(request, response) {
 var user = {'Europe':100, 'North America':200, 'South America':300, 'Asia':400, 'Africa':500};
 
 
-app.get('/cool', function(request, response) {
+app.get('/webhook', function(request, response) {
     var result = JSON.stringify(user);
     response.send(result);
 });
