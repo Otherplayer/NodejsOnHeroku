@@ -51,11 +51,11 @@ app.post('/webhook', jsonParser, function(request, response) {
     var result = {
         "speech": speech,
         "displayText": speech,
-        "source": "apiai-onlinestore-shipping"
+        "source": "polly-online-support"
     };
 
     // var result = JSON.stringify(result);
-    // if (!request.body) return request.sendStatus(400);
+    if (!request.body) return request.sendStatus(400);
     response.send(result);
 
 });
