@@ -19,33 +19,31 @@ app.use(function(req, res, next) {
 });
 
 
-
-
-var cost = {'北京':100, '上海':200, '郑州':300, '西安':400, '海口':500};
+var cost = {'北京':100000, '上海':200000, '郑州':450000, '西安':710000, '海口':500};
 
 
 
-app.get('/index.html', function(request, response) {
-    response.sendFile( __dirname + "/" + "index.html" );
-});
-
-app.post('/login',function (request,response) {
-    console.log(request.body);
-    response.send(cool());
-});
+// app.get('/index.html', function(request, response) {
+//     response.sendFile( __dirname + "/" + "index.html" );
+// });
+//
+// app.post('/login',function (request,response) {
+//     console.log(request.body);
+//     response.send(cool());
+// });
 
 //// POST /webhook gets JSON bodies
 app.post('/webhook', jsonParser, function(request, response) {
 
     var reqParams = request.body.result;
-    logger(reqParams);
+    //logger(reqParams);
 
     if (reqParams['action']['name'] != 'delivery.cost'){
         return {};
     }
     var parameters = reqParams.action["parameters"];
     var zone = parameters["geo-city"];
-    var speech = "运输到 " + zone + " 的费用是 " + cost[zone] + " RMB。";
+    var speech = "您好，" + zone + " 的邮编是 " + cost[zone] + " 。";
     logger(speech);
 
     var result = {
@@ -54,7 +52,6 @@ app.post('/webhook', jsonParser, function(request, response) {
         "source": "online-delivery-cost-query"
     };
 
-    // var result = JSON.stringify(result);
     if (!request.body) return request.sendStatus(400);
     response.send(result);
 
