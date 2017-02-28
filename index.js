@@ -38,7 +38,7 @@ app.post('/webhook', jsonParser, function(request, response) {
     var reqParams = request.body.result;
     //logger(reqParams);
 
-    if (reqParams['action']['name'] != 'delivery.cost'){
+    if (reqParams['action']['name'] != 'postalcode.action'){
         return {};
     }
     var parameters = reqParams.action["parameters"];
@@ -49,7 +49,7 @@ app.post('/webhook', jsonParser, function(request, response) {
     var result = {
         "speech": speech,
         "displayText": speech,
-        "source": "online-delivery-cost-query"
+        "source": "online-postal-code-query"
     };
 
     if (!request.body) return request.sendStatus(400);
