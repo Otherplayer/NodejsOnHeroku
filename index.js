@@ -43,7 +43,11 @@ app.post('/webhook', jsonParser, function(request, response) {
     }
     var parameters = reqParams.action["parameters"];
     var zone = parameters["geo-city"];
-    var speech = "您好，" + zone + " 的邮编是 " + cost[zone] + " 。";
+    var post = cost[zone];
+    var speech = "您好，" + zone + " 的邮编是 " + post + " 。";
+    if (!post || post == 'undefined'){
+        speech = '不好意思，未能查询到' + zone + '的邮编。';
+    }
     logger(speech);
 
     var result = {
