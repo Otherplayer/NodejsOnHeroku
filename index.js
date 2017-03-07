@@ -27,10 +27,10 @@ var cost = {'北京':100000, '上海':200000, '郑州':450000, '西安':710000, 
 //     response.sendFile( __dirname + "/" + "index.html" );
 // });
 //
-// app.post('/login',function (request,response) {
-//     console.log(request.body);
-//     response.send(cool());
-// });
+app.get('/login',function (request,response) {
+    console.log(request.body);
+    response.send(cool());
+});
 
 //// POST /webhook gets JSON bodies
 app.post('/webhook', jsonParser, function(request, response) {
