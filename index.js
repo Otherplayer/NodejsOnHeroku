@@ -81,11 +81,11 @@ app.post('/gfbquestion', jsonParser, function(request, response) {
         return {};
     }
     var parameters = reqParams.action["parameters"];
-    var zone = parameters["geo-city"];
-    var post = questions[zone];
-    var speech = "您好，" + zone + " 的邮编是 " + post + " 。";
-    if (!post || post == 'undefined'){
-        speech = '不好意思，未能查询到' + zone + '的邮编。';
+    var errcode = parameters["errcode"].toLowerCase();
+    var ans = questions[errcode];
+    var speech = ans;
+    if (!ans || ans == 'undefined'){
+        speech = '不好意思，未能查询到' + ans + '的问题。请与我们的技术工程师联系。';
     }
     logger(speech);
 
