@@ -76,7 +76,7 @@ var questions = {
 app.post('/gfbquestion', jsonParser, function(request, response) {
 
     var reqParams = request.body.result;
-    //logger(reqParams);
+    logger(reqParams);
 
     if (reqParams['action']['name'] != 'errcode.action'){
         return {};
