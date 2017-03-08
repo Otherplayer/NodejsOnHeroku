@@ -68,7 +68,8 @@ var questions = {
     '100e1040':'收款方虚拟账号错。请商户核实上传表单参数virCardNoIn国付宝转入账户（19位的数字）填写是否正确。',
     '100e8004':'系统验签失败。请商户核对一下MD5加密域， MD5明文串需严格遵守以下格式，所有字段即使有的值为空也必须出现，并且各个字段的顺序不能改变：提交订单参数数据加密实例：version=[2.1]tranCode=[8888]merchantID=[0000001502]merOrderNum=[ xxx789xx]tranAmt=[10.00]feeAmt=[]tranDateTime=[20121025154955]frontMerUrl=[]backgroundMerUrl=[http://www.baidu.com]orderId=[]gopayOutOrderId=[]tranIP=[127.0.0.1]respCode=[]gopayServerTime=[]VerficationCode=[11111aaaaa]接收返回参数校验数据加密实例：version=[2.1]tranCode=[8888]merchantID=[0000001502]merOrderNum=[ xxx789xx]tranAmt=[10.00]feeAmt=[5]tranDateTime=[20121025154955]frontMerUrl=[]backgroundMerUrl=[http://www.baidu.com]orderId=[20121025154988]gopayOutOrderId=[20121025154988]tranIP=[127.0.0.1]respCode=[0000]gopayServerTime=[]VerficationCode=[11111aaaaa]当明文串拼好后，把明文串进行加密操作，字符集格式utf-8，生成类似32位16进制密文，例：82ce1938fe56ac17d52aecaa428667e7。若商户仍然无法定位问题原因，请联系技术支持工程师协助查询。',
     '100e5003':'客户号与账户不匹配。请商户核对merchantID商户代码（用户ID）与virCardNoIn国付宝转让账户填写是否正确。',
-    '100e1016':'客户IP错误。请商户核实tranIP是否填写正确，或提供报错订单号给技术支持工程师协助查询。'
+    '100e1016':'客户IP错误。请商户核实tranIP是否填写正确，或提供报错订单号给技术支持工程师协助查询。',
+    '200e5001':'请商户核实是否开启域名防钓鱼校验，提交报文所用域名是否同在国付宝备案的域名相同，若要变更域名备案，请商户联系客户经理申请。若无法确定报错原因请提供报错订单号给技术支持工程师协助查询。'
 };
 
 
@@ -85,7 +86,7 @@ app.post('/gfbquestion', jsonParser, function(request, response) {
     var ans = questions[errcode];
     var speech = ans;
     if (!ans || ans == 'undefined'){
-        speech = '不好意思，未能查询到' + ans + '的问题。请与我们的技术工程师联系。';
+        speech = '不好意思，未能查询到' + ans + '的答案。请与我们的技术工程师联系。';
     }
     logger(speech);
 
