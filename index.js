@@ -86,7 +86,7 @@ app.post('/gfbquestion', jsonParser, function(request, response) {
     var ans = questions[errcode];
     var speech = ans;
     if (!ans || ans == 'undefined'){
-        speech = '不好意思，未能查询到' + ans + '的答案。请与我们的技术工程师联系。';
+        speech = '不好意思，未能查询到' + ans + '的答案。请与我们的技术工程师联系。输入技术支持，查看联系方式。';
     }
     logger(speech);
 
