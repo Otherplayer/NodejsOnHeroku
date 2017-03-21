@@ -69,7 +69,13 @@ var questions = {
     '100e8004':'系统验签失败。请商户核对一下MD5加密域， MD5明文串需严格遵守以下格式，所有字段即使有的值为空也必须出现，并且各个字段的顺序不能改变：提交订单参数数据加密实例：version=[2.1]tranCode=[8888]merchantID=[0000001502]merOrderNum=[ xxx789xx]tranAmt=[10.00]feeAmt=[]tranDateTime=[20121025154955]frontMerUrl=[]backgroundMerUrl=[http://www.baidu.com]orderId=[]gopayOutOrderId=[]tranIP=[127.0.0.1]respCode=[]gopayServerTime=[]VerficationCode=[11111aaaaa]接收返回参数校验数据加密实例：version=[2.1]tranCode=[8888]merchantID=[0000001502]merOrderNum=[ xxx789xx]tranAmt=[10.00]feeAmt=[5]tranDateTime=[20121025154955]frontMerUrl=[]backgroundMerUrl=[http://www.baidu.com]orderId=[20121025154988]gopayOutOrderId=[20121025154988]tranIP=[127.0.0.1]respCode=[0000]gopayServerTime=[]VerficationCode=[11111aaaaa]当明文串拼好后，把明文串进行加密操作，字符集格式utf-8，生成类似32位16进制密文，例：82ce1938fe56ac17d52aecaa428667e7。若商户仍然无法定位问题原因，请联系技术支持工程师协助查询。',
     '100e5003':'客户号与账户不匹配。请商户核对merchantID商户代码（用户ID）与virCardNoIn国付宝转让账户填写是否正确。',
     '100e1016':'客户IP错误。请商户核实tranIP是否填写正确，或提供报错订单号给技术支持工程师协助查询。',
-    '200e5001':'请商户核实是否开启域名防钓鱼校验，提交报文所用域名是否同在国付宝备案的域名相同，若要变更域名备案，请商户联系客户经理申请。若无法确定报错原因请提供报错订单号给技术支持工程师协助查询。'
+    '200e5001':'请商户核实是否开启域名防钓鱼校验，提交报文所用域名是否同在国付宝备案的域名相同，若要变更域名备案，请商户联系客户经理申请。若无法确定报错原因请提供报错订单号给技术支持工程师协助查询。',
+    '100E1026':'请商户核实上传表单中填写的bankCode银行代码是否正确。银行代码列表参照文档《国付宝人民币标准网关接口手册V2.1》中9.2银行代码列表，银行简称，例如建设银行：CCB。',
+    '100F1002':'请商户核实报错是生产环境还是测试环境，一般情况是国付宝系统正在维护，商户可以再次尝试提交订单，若还有问题，请提供报错订单号给技术支持工程师协助查询。',
+    '100E5055':'手续费金额不能大于交易金额。请商户核实测试的是生产环境还是测试环境，测试环境账户默认最低收取手续费为0.5元，商户提交订单金额应大于等于0.5元。生产环境下请核实手续费设置的多少，交易金额不能低于手续费金额。',
+    '100E5016':'重复的订单号金额不一致。提交表单中isRepeatSubmit设置为1，则未成功支付的订单可以再次使用原订单号发起，但交易金额必须保持不变；已成功的订单不允许重复提交。如果设置为0，则一旦提交，不管成功与否，商户都不能再次提交相同订单号的订单。',
+    '100E1007':'订单号错误。请商户核实上送订单号merOrderNum是否符合规范，格式：数字，字母，下划线，竖划线，中划线，长度1-30位。',
+    '100E1146':'是否审核标识错误。请商户核实付款到银行接口1.1提交表单中approve是否企业审核参数填写是否正确。'
 };
 
 
@@ -82,7 +88,7 @@ app.post('/gfbquestion', jsonParser, function(request, response) {
         return {};
     }
     var parameters = reqParams.action["parameters"];
-    var errcode = parameters["errcode"].toLowerCase();
+    var errcode = parameters["trade-err-code"].toLowerCase();
     var ans = questions[errcode];
     var speech = ans;
     if (!ans || ans == 'undefined'){
